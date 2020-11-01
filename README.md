@@ -1,3 +1,9 @@
+# Weather App
+
+![Weather App Image](images/Current-Forecast-App.png)
+
+This is an app that shows the current weather by location. Input any location and it will retrieve data from an API for that location including an image, temperature, and the weather type.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

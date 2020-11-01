@@ -7,6 +7,7 @@ function App() {
 
   const [list, setList] = useState([]);
   const [userInput, setUserInput] = useState("");
+  const [radioOption, setRadioOption] = useState("");
 
   function addCard(newCard){
     setList((prevCards) =>{
@@ -19,10 +20,35 @@ function App() {
     console.log(event.target.value);
   }
 
+  function handleRadioChange(event){
+    setRadioOption(event.target.value);
+  }
+
   function handleSubmit(event){
     event.preventDefault();
 
-    const units = "imperial";
+    let units;
+    let text;
+
+    switch(radioOption){
+      case "Fahrenheit":
+        units = "imperial";
+        text = "°F";
+        break;
+      case "Celsius":
+        units = "metric";
+        text = "°C";
+        break;
+      case "Kelvin":
+        units = "standard";
+        text = "K";
+        break;
+      default:
+        units = "imperial";
+        text = "°F";
+        break;
+    }
+
     const appid = process.env.REACT_APP_OPENWEATHER_API_KEY;
     const url = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=" + appid + "&units=" + units;
     axios.get(url)
@@ -34,7 +60,8 @@ function App() {
           date: today.toDateString(),
           img: "http://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png",
           temp: weatherData.main.temp,
-          description: weatherData.weather[0].description
+          description: weatherData.weather[0].description,
+          units: text
         })
       })
       .catch(error => console.log("There was an error!", error))
@@ -49,10 +76,17 @@ function App() {
           <input type="text" value={userInput} name="state" onChange={handleChange} />
           <button type="submit">Search</button>
         </label>
+        <br />
+        <input type="radio" id="Fahrenheit" name="units" value="Fahrenheit" checked={radioOption === "Fahrenheit"} onChange={handleRadioChange} />
+        <label for="male">Fahreheit</label>
+        <input type="radio" id="Celsius" name="units" value="Celsius" checked={radioOption === "Celsius"} onChange={handleRadioChange} />
+        <label for="male">Celsius</label>
+        <input type="radio" id="Kelvin" name="units" value="Kelvin" checked={radioOption === "Kelvin"} onChange={handleRadioChange} />
+        <label for="male">Kelvin</label>
       </form>
       <div className="row">
         {list.map((card) => (
-          <WeatherCard location={card.location} date={card.date} img={card.img} temp={card.temp} description={card.description} />
+          <WeatherCard location={card.location} date={card.date} img={card.img} temp={card.temp} description={card.description} units={card.units}/>
         ))}
       </div>
     </div>

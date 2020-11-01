@@ -8,7 +8,7 @@ function WeatherCard(props){
             <h1 className="card-title">{props.location}</h1>
             <p>{props.date}</p>
             <img src={props.img} alt="weather" />
-            <h1>{props.temp} °F</h1>
+            <h1>{props.temp} {props.units}</h1>
             <p>{props.description}</p>
           </div>
         </div>
