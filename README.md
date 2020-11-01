@@ -1,6 +1,6 @@
 # Weather App
 
-![Weather App Image](images/Current-Forecast-App.png)
+![Weather App Image](images/Current-Forecast-app.png)
 
 This is an app that shows the current weather by location. Input any location and it will retrieve data from an API for that location including an image, temperature, and the weather type.
 
